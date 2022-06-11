@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'vns-trips';
+  title = 'vnsCreative';
+
+constructor(private toastr: ToastrService) {
+
+}
+  teste() {
+    this.toastr.success('testando', 'Sucess!!', {
+      progressBar: true,
+      positionClass: 'toast-bottom-right',
+    })
+  }
 }

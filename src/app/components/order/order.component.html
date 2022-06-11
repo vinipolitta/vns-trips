@@ -1,0 +1,180 @@
+
+    <div class="col-12">
+      <div class="card card-chart">
+        <div class="card-header">
+          <form [formGroup]="orderForms" class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <h2 class="page-header">
+                  <i class="fa fa-shopping-cart"></i> Finalize o seu pedido
+                </h2>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <p class="lead">Seus Dados:</p>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-end">
+              <div class="col-xs-12 col-sm-3">
+                <span *ngIf="orderForms.hasError('emailsNotMatch')" class="help-block" style="color: red"
+                  ><i class="fa fa-remove"></i>
+                 Emails nao conferem
+                </span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 col-xs-12">
+                <app-input-container
+                  errorMessage="Campo Obrigatorio "
+                  label="Name"
+                >
+                  <input
+                    class="form-control marginInputError"
+                    formControlName="name"
+                    placeholder="Name"
+                  />
+                </app-input-container>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <app-input-container
+                  errorMessage="Campo Obrigatorio!!"
+                  label="Email"
+                >
+                  <input
+                    formControlName="email"
+                    type="text"
+                    class="form-control marginInputError"
+                    placeholder="Email"
+                  />
+                </app-input-container>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <app-input-container
+                  errorMessage="Campo Obrigatorio!!"
+                  label="Email Conf"
+                >
+                  <input
+                    formControlName="emailConf"
+                    type="text"
+                    class="form-control marginInputError"
+                    placeholder="Email Conf"
+                  />
+                </app-input-container>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <p class="lead">Endereço de Entrega:</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 col-xs-12">
+                <app-input-container
+                  errorMessage="Campo Obrigatorio e com no minimo 5 caracteres"
+                  label="Endereço"
+                >
+                  <input
+                    class="form-control marginInputError"
+                    formControlName="address"
+                    ngModel
+                    required
+                    minLength="5"
+                    placeholder="Endereço"
+                  />
+                </app-input-container>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <app-input-container
+                  errorMessage="Campo Obrigatorio!!"
+                  label="Numero"
+                >
+                  <input
+                    required
+                    formControlName="number"
+                    ngModel
+                    type="number"
+                    class="form-control marginInputError"
+                    id="inputSuccess"
+                    placeholder="Número"
+                  />
+                </app-input-container>
+              </div>
+              <div class="col-sm-4 col-xs-6">
+                <app-input-container
+                  errorMessage="Numero Obrigatorio!!"
+                  label="Numero"
+                >
+                  <input
+                    formControlName="optionalAddress"
+                    ngModel
+                    type="text"
+                    class="form-control marginInputError"
+                    id="inputSuccess"
+                    placeholder="Complemento"
+                  />
+                </app-input-container>
+              </div>
+            </div>
+            <!-- /.row -->
+
+            <!-- Table row -->
+            <div class="row">
+              <div class="col-xs-12">
+                <p class="lead">Itens do Pedido:</p>
+              </div>
+              <div class="col-xs-12 table-responsive">
+                <app-order-itens
+                  [items]="cartItem()"
+                  [coluns]="coluns"
+                  (decreaseQty)="decreaseQty($event)"
+                  (increaseQty)="increaseQty($event)"
+                  (remove)="remove($event)"
+                ></app-order-itens>
+              </div>
+            </div>
+
+            <div class="row d-flex justify-content-between">
+              <div class="col-sm-6">
+                <p class="lead">Formas de Pagamento:</p>
+                <div class="ml-4">
+                  <div class="form-group">
+                    <app-radio
+                      [options]="paymentOptions"
+                      formControlName="paymentOption"
+                      ngModel
+                      required
+                    ></app-radio>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6" style="padding: 0 !important">
+                <p class="lead">Frete e Total:</p>
+
+                <app-delivery-costs
+                  [delivery]="delivery"
+                  [itemsValue]="itemsValue()"
+                ></app-delivery-costs>
+              </div>
+              <!-- /.col -->
+            </div>
+
+            <div class="row d-flex justify-content-center">
+              <div class="col-xs-12 text-center mb-3">
+                <button
+                  [disabled]="orderForms.invalid || cartItem().length === 0"
+                  class="btn btn-success pull-right"
+                  (click)="checkOrder(orderForms.value)"
+                >
+                  <i class="fa fa-credit-card"></i> Concluir Pedido
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+

@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-sm-8">
+    <div class="card card-chart">
+      <app-menu-item class="mb-2"
+        *ngFor="let item of menuItems | async"
+        [menuItem]="item"
+        (add)="shoppingCart.addItem($event)"
+      ></app-menu-item>
+    </div>
+  </div>
+
+  <div class="col-sm-4 ">
+    <div class="card card-chart ">
+      <div class="card-header">
+        <app-shopping-card #shoppingCart></app-shopping-card>
+      </div>
+    </div>
+  </div>
+</div>

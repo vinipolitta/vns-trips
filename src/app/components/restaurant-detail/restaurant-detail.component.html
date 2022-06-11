@@ -1,0 +1,45 @@
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Details Restaurants</h5>
+          <div class="row">
+            <div class="col-sm-6 col-md-8 text-left">
+              <h3 class="card-title"><i class="fa fa-utensils"></i>{{ restaurant?.name }}</h3>
+            </div>
+            <div class="col-sm-6 col-md-4 text-right"><span><i class="fa-regular fa-star"></i>&nbsp; {{ restaurant?.rating }}</span></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3 col-xs-12" *ngIf="restaurant">
+              <img
+                class="box-img-detail"
+                src="{{ restaurant?.imagePath }}"
+              />
+            </div>
+            <dl class="col-sm-9 col-xs-12">
+              <dt>Categoria</dt>
+              <dd>{{ restaurant?.category }}</dd>
+              <dt>Quem somos</dt>
+              <dd>
+                {{ restaurant?.about }}
+              </dd>
+              <dt>Horários</dt>
+              <dd>{{ restaurant?.hours }} </dd>
+            </dl>
+          </div>
+
+          <div class="row justify-content-center">
+            <button class="btn btn-danger btn-simple detail-active" (click)="clicked=true;clicked1=false;clicked2=false" [ngClass]="{'active':clicked===true}" routerLinkActive="detail-active" [routerLink]="['menu']" style="width: 140px">
+              Menu
+            </button>
+            <button class="btn btn-danger btn-simple detail-active" (click)="clicked=false;clicked1=true;clicked2=false" [ngClass]="{'active':clicked1===true}" routerLinkActive="detail-active" [routerLink]="['reviews']" style="width: 140px">
+              Avaliations
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,22 @@
+<div class="col-12">
+  <div class="card card-chart">
+    <div class="card-header">
+      <!-- INICIO DO CONTEUDO -->
+
+      <div class="jumbotron colorCard">
+        <h2>Pedido Conluído</h2>
+        <p>
+          Seu pedido foi recebido pelo restaurante. Prepare a mesa que a comida
+          está chegando!
+        </p>
+        <p><b>Avalie</b> sua experiência:</p>
+        <p class="text-warning d-flex justify-content-center">
+          <app-rating (rated)="rate()"></app-rating>
+        </p>
+        <p *ngIf="!rated">Obrigado pela sua avaliaçao</p>
+      </div>
+
+      <!-- FIM DO CONTEUDO -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<!--INICIO DO CARRINHO-->
+<div class="box box-solid">
+  <div class="box-header">
+    <h3 class="box-title">
+      <i
+        [@rubberBand]="rubber"
+        (click)="rubber = !rubber"
+        class="fa fa-shopping-cart"
+      ></i
+      >&nbsp; Carrinho
+    </h3>
+  </div>
+  <!-- /.box-header -->
+</div>
+
+<div class="card-body">
+  <div *ngIf="!items().length">
+    <p class="text-center">Seu carrinho esta vazio</p>
+  </div>
+  <div class="table-responsive" *ngIf="items().length">
+    <table class="table" id="">
+      <tbody>
+        <tr [@row]="rowState" *ngFor="let item of items()">
+          <th>({{ item.quantity }}x) {{ item.menuItem.name }}</th>
+
+          <td class="text-right">{{ item.value() | currency: "BRL":true }}</td>
+          <td class="text-right">
+            <a (click)="removeItem(item)" class="help-block text-danger"
+              ><i class="fa fa-remove"></i
+            ></a>
+          </td>
+        </tr>
+        <!-- <tr>
+          <th>Frete:</th>
+
+          <td class="text-right">R$ 8,00</td>
+        </tr> -->
+        <tr>
+          <th>Total:</th>
+
+          <td class="text-right">{{ total() | currency: "BRL":true }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <div class="alingBtn">
+        <button type="button" (click)="clear()" class="btn btn-danger alingBtn">
+          <i class="fa fa-trash"></i> Limpar
+        </button>
+
+        <button
+          [routerLink]="['/order']"
+          href="order.html"
+          class="btn btn-success alingBtn"
+        >
+          <i class="fa fa-credit-card"></i> Fechar Pedido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FIM DO CARRINHO -->

@@ -1,0 +1,33 @@
+<table class="table tablesorter" id="">
+  <thead class="text-primary">
+    <tr>
+      <th *ngFor="let colun of coluns">{{ colun }}</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let item of dataTables">
+    <tr [routerLink]="['/market', item.id]">
+      <td>
+        <div class="media align-items-center">
+          <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+            <img alt="Image placeholder" src="{{ item.imagePath }}" />
+          </a>
+          <div class="media-body">
+            <span class="mb-0 text-sm">{{ item.name }}</span>
+          </div>
+        </div>
+      </td>
+      <td>{{ item.rating }}&nbsp;&nbsp;<i class="fa fa-star"></i></td>
+      <td class="text-centre">
+        <span class="badge badge-dot mr-4">
+          {{ item.category }}
+        </span>
+      </td>
+
+      <td class="text-right">
+        <div class="d-flex justify-content-center">
+          <span class="mr-2">{{ item.deliveryEstimate }}</span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

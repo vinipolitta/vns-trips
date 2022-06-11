@@ -1,0 +1,33 @@
+<table class="table tablesorter" id="">
+  <!-- <thead class="text-primary">
+    <tr>
+      <th>Name</th>
+      <th>Country</th>
+      <th>City</th>
+      <th class="text-center">Salary</th>
+    </tr>
+  </thead> -->
+  <tbody>
+    <tr>
+      <td >
+        <div class="media align-items-center">
+          <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+            <img alt="Image placeholder" src="{{ menuItem.imagePath }}" />
+          </a>
+          <div class="media-body">
+            <span class="mb-0 text-sm">{{ menuItem.name }}</span>
+          </div>
+        </div>
+      </td>
+      <td>
+      </td>
+      <td>{{ menuItem.description }}</td>
+      <td>{{ menuItem.price | currency: "BRL":true }}</td>
+      <td class="text-center">
+        <a (click)="emitAddEvent()" class=""
+          ><i class="fa fa-plus-circle"></i> Adicionar</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
