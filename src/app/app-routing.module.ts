@@ -24,6 +24,7 @@ const routes: Routes = [
 
   ] },
   { path: 'order', loadChildren: () => import('./components/order/order.module').then(m => m.OrderModule) },
+  { path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule) },
 
   // { path: 'restaurant', component: RestaurantComponent },
   // {
