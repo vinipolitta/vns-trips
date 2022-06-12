@@ -25,6 +25,7 @@ import { MarketDetailComponent } from './components/market/market-detail/market-
 import { MarketMenuComponent } from './components/market/market-detail/market-menu/market-menu.component';
 import { MarketItemComponent } from './components/market/market-detail/market-item/market-item.component';
 import { ShoppingCartComponent } from './components/market/market-detail/shopping-cart/shopping-cart.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { ShoppingCartComponent } from './components/market/market-detail/shoppin
     ToastrModule.forRoot(),
     NgbModule,
     SharedModule,
+    ModalModule.forRoot(),
 
 
   ],

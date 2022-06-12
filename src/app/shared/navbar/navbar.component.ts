@@ -1,8 +1,9 @@
-import { Component, OnInit, ElementRef, OnDestroy } from "@angular/core";
+import { Component, OnInit, ElementRef, OnDestroy, TemplateRef } from "@angular/core";
 import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
   selector: "app-navbar",
@@ -15,6 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
+  modalRef?: BsModalRef;
 
   public isCollapsed = true;
 
@@ -24,7 +26,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private modalServices: BsModalService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -106,6 +109,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     var $toggle = document.getElementsByClassName("navbar-toggler")[0];
     var $layer = document.createElement("div");
 
+
     if (this.sidebarVisible === false) {
       this.sidebarOpen();
     } else {
@@ -173,10 +177,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return "Dashboard";
   }
 
-  open(content: any) {
+  open(content) {
+    console.log('entrado metodo');
+
     this.modalService.open(content, {windowClass: 'modal-search'}).result.then((result) => {
+      console.log('teste', result);
+
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
+      console.log('teste 2', reason);
+
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
@@ -192,5 +202,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
      window.removeEventListener("resize", this.updateColor);
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalServices.show(template);
+  }
+
+  openModalWithClass(template: TemplateRef<any>) {
+    this.modalRef = this.modalServices.show(
+      template,
+      Object.assign({}, { class: 'modal-search' })
+    );
   }
 }
