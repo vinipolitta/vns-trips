@@ -110,5 +110,7 @@
       }
     }
   },
-  "defaultProject": "vnsCreative"
+  "cli": {
+    "analytics": "48937deb-6cb1-4d51-bb92-d0e184708dd8"
+  }
 }
