@@ -51,6 +51,7 @@ export class EventosComponent implements OnInit {
   public confirm(): void {
     this.modalRef?.hide();
     this.showNotification(
+      'success',
       'bottom',
       'right',
       'Deletado com sucesso',
@@ -78,7 +79,15 @@ export class EventosComponent implements OnInit {
         this.eventsFilter = this.eventos;
       },
       error: (error) => {
-        console.log(error), this.spinner.hide(), this.showNotification('');
+        console.log(error),
+          this.spinner.hide(),
+          this.showNotification(
+            'danger',
+            'bottom',
+            'right',
+            'Evento não encontrado',
+            'Error!!'
+          );
       },
       complete: () => this.spinner.hide(),
     });
@@ -90,10 +99,11 @@ export class EventosComponent implements OnInit {
 
   // TOAST
   public showNotification(
+    toastClasse?: string,
     from?: string,
     align?: string,
     subTitle?: string,
-    titleToast?: string
+    titleToast?: string,
   ) {
     // <span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.
     this.toastr.show(
@@ -105,7 +115,7 @@ export class EventosComponent implements OnInit {
         disableTimeOut: false,
         closeButton: true,
         enableHtml: true,
-        toastClass: 'alert alert-warning alert-with-icon',
+        toastClass: 'alert alert-' + toastClasse + ' alert-with-icon',
         positionClass: 'toast-' + from + '-' + align,
       }
     );

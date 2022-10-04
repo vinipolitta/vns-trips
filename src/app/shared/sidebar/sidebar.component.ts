@@ -15,6 +15,13 @@ export const ROUTES: RouteInfo[] = [
   //   class: "",
   // },
   {
+    path: "/dashboard",
+    title: "Dashboard",
+    typeIcon: 'solid',
+    icon: 'fa-house-user',
+    class: '',
+  },
+  {
     path: '/home',
     title: 'Home',
     typeIcon: 'solid',
@@ -24,6 +31,20 @@ export const ROUTES: RouteInfo[] = [
   {
     path: '/eventos',
     title: 'Eventos',
+    typeIcon: 'regular',
+    icon: 'fa-calendar',
+    class: '',
+  },
+  {
+    path: '/perfil',
+    title: 'Perfil',
+    typeIcon: 'regular',
+    icon: 'fa-calendar',
+    class: '',
+  },
+  {
+    path: '/contatos',
+    title: 'Contatos',
     typeIcon: 'regular',
     icon: 'fa-calendar',
     class: '',

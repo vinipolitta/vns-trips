@@ -12,6 +12,7 @@ import { InputContainerComponent } from './input-container/input-container.compo
 import { RadioComponent } from './radio/radio.component';
 import { RatingComponent } from './rating/rating.component';
 import { ManagerColorsComponent } from './manager-colors/manager-colors.component';
+import { TitleComponent } from './title/title.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ManagerColorsComponent } from './manager-colors/manager-colors.componen
     RadioComponent,
     RatingComponent,
     ManagerColorsComponent,
+    TitleComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { ManagerColorsComponent } from './manager-colors/manager-colors.componen
     SharedRoutingModule,
     RadioComponent,
     RatingComponent,
-    ManagerColorsComponent
+    ManagerColorsComponent,
+    TitleComponent
   ],
 })
 export class SharedModule {}
