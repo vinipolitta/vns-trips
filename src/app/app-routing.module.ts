@@ -1,3 +1,4 @@
+import { EventosComponent } from './components/eventos/eventos.component';
 import { MarketMenuComponent } from './components/market/market-detail/market-menu/market-menu.component';
 import { MarketDetailComponent } from './components/market/market-detail/market-detail.component';
 import { MarketComponent } from './components/market/market.component';
@@ -16,15 +17,16 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'home', component: HomeComponent },
-  { path: 'market', component: MarketComponent },
-  { path: 'market/:id', component: MarketDetailComponent, children: [
-    { path: '', component: MarketMenuComponent },
-    { path: 'menu', component: MarketMenuComponent },
-    { path: 'reviews', component: ReviewsComponent },
+  { path: 'eventos', component: EventosComponent },
+  // { path: 'market', component: MarketComponent },
+  // { path: 'market/:id', component: MarketDetailComponent, children: [
+  //   { path: '', component: MarketMenuComponent },
+  //   { path: 'menu', component: MarketMenuComponent },
+  //   { path: 'reviews', component: ReviewsComponent },
 
-  ] },
-  { path: 'order', loadChildren: () => import('./components/order/order.module').then(m => m.OrderModule) },
-  { path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule) },
+  // ] },
+  // { path: 'order', loadChildren: () => import('./components/order/order.module').then(m => m.OrderModule) },
+  // { path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule) },
 
   // { path: 'restaurant', component: RestaurantComponent },
   // {

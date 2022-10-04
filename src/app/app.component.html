@@ -7,7 +7,28 @@
       <div class="row">
         <div class="col-12">
           <router-outlet></router-outlet>
-
+          <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-scale-multiple"
+          >
+            <div class="lds-spinner text-center">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <p style="font-size: 20px; color: white" >Carregando...</p>
+          </ngx-spinner>
         </div>
       </div>
     </div>

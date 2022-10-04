@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
   }
 
   showNotification(from, align) {
-    this.toastr.show('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.', '', {
+    // <span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.
+    this.toastr.show('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span>  teste', '', {
       disableTimeOut: true,
       closeButton: true,
       enableHtml: true,

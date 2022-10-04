@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -25,6 +29,8 @@ import { MarketDetailComponent } from './components/market/market-detail/market-
 import { MarketMenuComponent } from './components/market/market-detail/market-menu/market-menu.component';
 import { MarketItemComponent } from './components/market/market-detail/market-item/market-item.component';
 import { ShoppingCartComponent } from './components/market/market-detail/shopping-cart/shopping-cart.component';
+import { EventosComponent } from './components/eventos/eventos.component';
+import { DateTimeFormatPipe } from './shared/pipes/date-time-format.pipe';
 
 
 @NgModule({
@@ -43,7 +49,9 @@ import { ShoppingCartComponent } from './components/market/market-detail/shoppin
     MarketDetailComponent,
     MarketMenuComponent,
     MarketItemComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    EventosComponent,
+    DateTimeFormatPipe
   ],
   imports: [
     BrowserModule,
@@ -52,8 +60,12 @@ import { ShoppingCartComponent } from './components/market/market-detail/shoppin
     RouterModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     CollapseModule.forRoot(),
     ToastrModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    TooltipModule.forRoot(),
     NgbModule,
     SharedModule,
 

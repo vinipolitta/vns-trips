@@ -1,4 +1,4 @@
-.main-panel {
+.main-panel, .table-dark {
   &, &[data="red"]{
     border-color: $danger;
   }
@@ -8,6 +8,7 @@
     min-height: calc(100vh - 70px);
   }
 }
+
 @media screen and (max-width: 768px){
   .main-panel .content {
       padding-left: 15px;
@@ -25,7 +26,7 @@
         width: 35px;
     }
 }
-.sidebar, .off-canvas-sidebar{
+.sidebar, .off-canvas-sidebar, .table-dark{
   &, &[data="red"]{
     @include linear-gradient($danger-states, $danger);
   }

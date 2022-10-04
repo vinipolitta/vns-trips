@@ -7,14 +7,10 @@
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/brands';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
-@import "./node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
-@import "./node_modules/@fortawesome/fontawesome-free/scss/_icons.scss";
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+
 
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
