@@ -13,6 +13,12 @@ export class ManagerColorsComponent implements OnInit {
   changeSidebarColor(color){
     var sidebar = document.getElementsByClassName('sidebar')[0];
     var mainPanel = document.getElementsByClassName('main-panel')[0];
+    var cardLogin = document.getElementsByClassName('card-login')[0];
+    console.log(cardLogin);
+
+    console.log(sidebar);
+
+
 
     this.sidebarColor = color;
 
@@ -22,6 +28,9 @@ export class ManagerColorsComponent implements OnInit {
     if(mainPanel != undefined){
         mainPanel.setAttribute('data',color);
     }
+    if(cardLogin != undefined){
+      cardLogin.setAttribute('data',color);
+  }
   }
   changeDashboardColor(color){
     var body = document.getElementsByTagName('body')[0];

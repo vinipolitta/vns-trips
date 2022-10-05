@@ -1,0 +1,22 @@
+.container {
+  background-image: url(/assets/img/backgroundLogin.jpg);
+  animation: color-change-4x 25s linear infinite both;
+}
+
+@keyframes color-change-4x {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 75%;
+  }
+  50% {
+    background-position: 75% 100%;
+  }
+  75% {
+    background-position: 100% 75%;
+   }
+  100% {
+    background-position: 75% 50%;
+  }
+}

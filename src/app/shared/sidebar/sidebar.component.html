@@ -22,7 +22,7 @@
       class="{{ menuItem.class }} nav-item"
     >
       <a [routerLink]="[menuItem.path]">
-        <i class="fa-{{ menuItem.typeIcon }} {{ menuItem.icon }}"></i>
+        <i class="fa{{ menuItem.typeIcon }} {{ menuItem.icon }}"></i>
         <p>{{ menuItem.title }}</p>
       </a>
     </li>

@@ -1,9 +1,11 @@
 <div class="wrapper">
-  <div class="sidebar"><app-sidebar></app-sidebar></div>
+  <div class="sidebar" *ngIf="showMenu()">
+    <app-sidebar></app-sidebar>
+  </div>
   <div class="main-panel">
-    <app-navbar></app-navbar>
+    <app-navbar *ngIf="showMenu()"></app-navbar>
 
-    <div class="content">
+    <div class="{{ showMenu() ? 'content' : '' }}">
       <div class="row">
         <div class="col-12">
           <router-outlet></router-outlet>
@@ -27,12 +29,12 @@
               <div></div>
               <div></div>
             </div>
-            <p style="font-size: 20px; color: white" >Carregando...</p>
+            <p style="font-size: 20px; color: white">Carregando...</p>
           </ngx-spinner>
         </div>
       </div>
     </div>
     <app-manager-colors></app-manager-colors>
-    <app-footer></app-footer>
+    <app-footer *ngIf="showMenu()"></app-footer>
   </div>
 </div>

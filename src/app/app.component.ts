@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Component } from '@angular/core';
 
@@ -9,13 +10,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'vnsCreative';
 
-constructor(private toastr: ToastrService) {
+constructor(private router: Router) {
 
 }
-  teste() {
-    this.toastr.success('testando', 'Sucess!!', {
-      progressBar: true,
-      positionClass: 'toast-bottom-right',
-    })
+  public showMenu(): boolean {
+    return this.router.url !== '/user/login' && this.router.url !== '/user/registration';
   }
 }

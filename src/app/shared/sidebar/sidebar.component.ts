@@ -17,35 +17,35 @@ export const ROUTES: RouteInfo[] = [
   {
     path: "/dashboard",
     title: "Dashboard",
-    typeIcon: 'solid',
-    icon: 'fa-house-user',
+    typeIcon: '',
+    icon: 'fa-chart-line',
     class: '',
   },
   {
     path: '/home',
     title: 'Home',
-    typeIcon: 'solid',
+    typeIcon: '-solid',
     icon: 'fa-house-user',
     class: '',
   },
   {
     path: '/eventos',
     title: 'Eventos',
-    typeIcon: 'regular',
-    icon: 'fa-calendar',
+    typeIcon: '',
+    icon: 'fa-calendar-alt',
     class: '',
   },
   {
-    path: '/perfil',
+    path: 'user/perfil',
     title: 'Perfil',
-    typeIcon: 'regular',
-    icon: 'fa-calendar',
+    typeIcon: '',
+    icon: 'fa-user-alt',
     class: '',
   },
   {
     path: '/contatos',
     title: 'Contatos',
-    typeIcon: 'regular',
+    typeIcon: '-regular',
     icon: 'fa-calendar',
     class: '',
   },
@@ -70,6 +70,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   @Input() isCollapsed!: boolean;
   menuItems!: any[];
+
 
   constructor() {}
 
