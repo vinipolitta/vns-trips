@@ -12,57 +12,144 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                 </div>
-                <form class="user">
+                <form [formGroup]="form" class="user">
+                  <p>{{ form.value | json }}</p>
+                  <p>{{ form.valid | json }}</p>
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="text"
                         class="form-control form-control-user"
-                        id="exampleFirstName"
+                        id="primeiroNome"
+                        formControlName="primeiroNome"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.primeiroNome?.errors && f.primeiroNome?.touched
+                        }"
                         placeholder="First Name"
                       />
+                      <div
+                        *ngIf="f.primeiroNome.errors?.required"
+                        class="invalid-feedback"
+                      >
+                        Primeiro e obrigatorio
+                      </div>
                     </div>
                     <div class="col-sm-6">
                       <input
                         type="text"
                         class="form-control form-control-user"
-                        id="exampleLastName"
+                        id="ultimoNome"
+                        formControlName="ultimoNome"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.ultimoNome?.errors && f.ultimoNome?.touched
+                        }"
                         placeholder="Last Name"
                       />
+                      <div
+                        *ngIf="f.ultimoNome.errors?.required"
+                        class="invalid-feedback"
+                      >
+                        Ultimo e obrigatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-user"
+                      id="user"
+                      formControlName="userName"
+                      [ngClass]="{
+                        'is-invalid': f.userName?.errors && f.userName?.touched
+                      }"
+                      placeholder="userName"
+                    />
+                    <div
+                      *ngIf="f.userName.errors?.required"
+                      class="invalid-feedback"
+                    >
+                      userName e obrigatorio
                     </div>
                   </div>
                   <div class="form-group">
                     <input
                       type="email"
                       class="form-control form-control-user"
-                      id="exampleInputUserName"
-                      placeholder="User"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control form-control-user"
-                      id="exampleInputEmail"
+                      id="email"
+                      formControlName="email"
+                      [ngClass]="{
+                        'is-invalid': f.email?.errors && f.email?.touched
+                      }"
                       placeholder="Email Address"
                     />
+                    <div
+                      *ngIf="f.email.errors?.required"
+                      class="invalid-feedback"
+                    >
+                      Email e obrigatorio
+                    </div>
+                    <div *ngIf="f.email.errors?.email" class="invalid-feedback">
+                      Email nao e valido
+                    </div>
                   </div>
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="password"
                         class="form-control form-control-user"
-                        id="exampleInputPassword"
+                        id="password"
+                        formControlName="password"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.password?.errors && f.password?.touched
+                        }"
                         placeholder="Password"
                       />
+                      <div
+                        *ngIf="f.password.errors?.required"
+                        class="invalid-feedback"
+                      >
+                        Passord e obrigatorio
+                      </div>
+                      <div
+                        *ngIf="f.password.errors?.minlength"
+                        class="invalid-feedback"
+                      >
+                        Deve ter no minimo 4 caracteres
+                      </div>
+                      <div
+                        *ngIf="f.password.errors?.maxlength"
+                        class="invalid-feedback"
+                      >
+                        Tamanho max permitido e de 50 caracteres
+                      </div>
                     </div>
                     <div class="col-sm-6">
                       <input
                         type="password"
                         class="form-control form-control-user"
-                        id="exampleRepeatPassword"
+                        id="confirmPass"
+                        formControlName="confirmPass"
+                        [ngClass]="{
+                          'is-invalid':
+                            f.confirmPass?.errors && f.confirmPass?.touched
+                        }"
                         placeholder="Repeat Password"
                       />
+                      <div
+                        *ngIf="f.confirmPass.errors?.required"
+                        class="invalid-feedback"
+                      >
+                        Confirmation Password e obrigatorio
+                      </div>
+                      <div
+                        *ngIf="f.confirmPass.errors?.mustMatch"
+                        class="invalid-feedback"
+                      >
+                        Senhas nao sao iguais
+                      </div>
                     </div>
 
                     <div class="form-group">
@@ -73,6 +160,7 @@
                           type="checkbox"
                           class="custom-control-input"
                           id="customCheck"
+                          formControlName="confirmTerms"
                         />
                         <label class="custom-control-label" for="customCheck"
                           >Eu concordo com os termos</label
@@ -80,12 +168,13 @@
                       </div>
                     </div>
                   </div>
-                  <a
+                  <button
+                    [disabled]="form.invalid"
                     href="login.html"
                     class="btn btn-primary btn-user btn-block"
                   >
                     Register Account
-                  </a>
+                  </button>
                   <hr />
                   <a href="index.html" class="btn btn-info btn-block">
                     <i class="fab fa-google fa-fw"></i> Register with Google

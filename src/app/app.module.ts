@@ -10,10 +10,11 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ToastrModule } from 'ngx-toastr';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { EventosComponent } from './components/eventos/eventos.component';
@@ -49,10 +50,12 @@ import { RegistrationComponent } from './components/user/registration/registrati
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
