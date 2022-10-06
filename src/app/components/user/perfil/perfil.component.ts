@@ -88,4 +88,10 @@ export class PerfilComponent implements OnInit {
       formOptions
     );
   }
+
+  public onSubmit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+  }
 }
