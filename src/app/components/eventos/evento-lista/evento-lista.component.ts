@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EventoService } from 'src/app/core/services/evento.service';
 import { Evento } from '@app/shared/interfaces/evento';
+import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
 
 @Component({
   selector: 'app-evento-lista',
@@ -14,6 +15,7 @@ import { Evento } from '@app/shared/interfaces/evento';
 export class EventoListaComponent implements OnInit {
   public eventos: Evento[] = [];
   public widthImg = 50;
+  public eventoId = 0;
   public margenImg = 2;
   public showImage = false;
   public eventsFilter: Evento[] = [];
@@ -36,7 +38,7 @@ export class EventoListaComponent implements OnInit {
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
-    private toastr: ToastrService,
+    private notigicationAlert: NotificationsAlertsService,
     private spinner: NgxSpinnerService,
     private router: Router
   ) {}
@@ -46,19 +48,42 @@ export class EventoListaComponent implements OnInit {
     this.spinner.show();
   }
 
-  public openModal(template: TemplateRef<any>) {
+  public openModal(event: any, template: TemplateRef<any>, eventoId: number) {
+    event.stopPropagation();
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+    this.eventoId = eventoId;
   }
 
   public confirm(): void {
     this.modalRef?.hide();
-    this.showNotification(
-      'success',
-      'bottom',
-      'right',
-      'Deletado com sucesso',
-      'Deletado!!'
-    );
+    this.spinner.show();
+    this.eventoService
+      .deleteEvento(this.eventoId)
+      .subscribe(
+        (result: any) => {
+          if (result.message === 'Deletado') {
+            this.notigicationAlert.showNotification(
+              'success',
+              'bottom',
+              'right',
+              'Deletado com sucesso',
+              'Deletado!!'
+            );
+            this.getEventos();
+          }
+        },
+        (error: any) => {
+          console.log(error);
+          this.notigicationAlert.showNotification(
+            'warging',
+            'bottom',
+            'right',
+            `Erro ao deletar evento ${this.eventoId}`,
+            'Error!!'
+          );
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 
   public decline(): void {
@@ -75,52 +100,30 @@ export class EventoListaComponent implements OnInit {
   }
 
   public getEventos(): void {
-    this.eventoService.getEvento().subscribe({
-      next: (_eventos: Evento[]) => {
-        this.eventos = _eventos;
-        this.eventsFilter = this.eventos;
-      },
-      error: (error) => {
-        console.log(error),
-          this.spinner.hide(),
-          this.showNotification(
-            'danger',
-            'bottom',
-            'right',
-            'Evento não encontrado',
-            'Error!!'
-          );
-      },
-      complete: () => this.spinner.hide(),
-    });
+    this.spinner.show();
+    this.eventoService
+      .getEvento()
+      .subscribe({
+        next: (_eventos: Evento[]) => {
+          this.eventos = _eventos;
+          this.eventsFilter = this.eventos;
+        },
+        error: (error) => {
+          console.log(error),
+            this.notigicationAlert.showNotification(
+              'danger',
+              'bottom',
+              'right',
+              'Evento não encontrado',
+              'Error!!'
+            );
+        },
+      })
+      .add(() => this.spinner.hide());
   }
 
   public showImageHtml() {
     this.showImage = !this.showImage;
-  }
-
-  // TOAST
-  public showNotification(
-    toastClasse?: string,
-    from?: string,
-    align?: string,
-    subTitle?: string,
-    titleToast?: string
-  ) {
-    // <span class="tim-icons icon-bell-55" [data-notify]="icon"></span> Welcome to <b>Black Dashboard Angular</b> - a beautiful freebie for every web developer.
-    this.toastr.show(
-      '<span class="tim-icons icon-bell-55" [data-notify]="icon"></span>' +
-        subTitle,
-      titleToast,
-
-      {
-        disableTimeOut: false,
-        closeButton: true,
-        enableHtml: true,
-        toastClass: 'alert alert-' + toastClasse + ' alert-with-icon',
-        positionClass: 'toast-' + from + '-' + align,
-      }
-    );
   }
 
   public editEvent(eventoId: number): void {
