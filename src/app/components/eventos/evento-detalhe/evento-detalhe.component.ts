@@ -48,7 +48,18 @@ export class EventoDetalheComponent implements OnInit {
       adaptivePosition: true,
       containerClass: 'theme-default',
       isAnimated: true,
-      dateInputFormat: 'DD/MM/YYYY hh:mm a',
+      dateInputFormat: 'DD/MM/YYYY hh:mm ',
+      showWeekNumbers: false,
+      withTimepicker: true,
+    };
+  }
+
+  get bsConfigLote(): any {
+    return {
+      adaptivePosition: true,
+      containerClass: 'theme-default',
+      isAnimated: true,
+      dateInputFormat: 'DD/MM/YYYY',
       showWeekNumbers: false,
       withTimepicker: true,
     };

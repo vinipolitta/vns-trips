@@ -52,7 +52,7 @@
                 <input
                   type="datetime"
                   bsDatepicker
-                  value="{{ evento.dataEvento }}"
+                  value="{{ evento.dataEvento | dateTimeFormatPipe }}"
                   [bsConfig]="bsConfig"
                   class="form-control"
                   formControlName="dataEvento"
@@ -186,7 +186,6 @@
                         formControlName="nome"
                         placeholder="Lote"
                       />
-
                     </div>
                     <div class="form-group col-md-4">
                       <label>Quantidade</label>
@@ -212,6 +211,8 @@
                     <div class="form-group col-md-4">
                       <label>Data Início</label>
                       <input
+                        bsDatepicker
+                        [bsConfig]="bsConfigLote"
                         type="text"
                         class="form-control"
                         formControlName="dateInicio"
@@ -221,6 +222,9 @@
                     <div class="form-group col-md-4">
                       <label>Data Fim</label>
                       <input
+                        bsDatepicker
+
+                        [bsConfig]="bsConfigLote"
                         type="text"
                         class="form-control"
                         formControlName="dataFim"
@@ -261,12 +265,13 @@
   </div>
 </div>
 
-
-
 <!-- MODAL -->
 <ng-template #template>
   <div class="modal-body text-center">
-    <p>Tem certeza que irá deletar o: <b>{{ this.loteAtual.nome }}</b>?</p>
+    <p>
+      Tem certeza que irá deletar o: <b>{{ this.loteAtual.nome }}</b
+      >?
+    </p>
     <button type="button" class="btn btn-default" (click)="confirmLoteDelete()">
       Yes
     </button>
