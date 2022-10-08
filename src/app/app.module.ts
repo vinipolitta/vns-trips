@@ -31,8 +31,24 @@ import { RegistrationComponent } from './components/user/registration/registrati
 
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 defineLocale('pt-br', ptBrLocale);
 
+
+export const customCurrencyMaskConfig = {
+  align: "left",
+  allowNegative: true,
+  allowZero: true,
+  decimal: ",",
+  precision: 2,
+  prefix: "R$ ",
+  suffix: "",
+  thousands: ".",
+  nullable: true,
+  min: null,
+  max: null,
+  inputMode: CurrencyMaskInputMode.FINANCIAL
+};
 
 @NgModule({
   declarations: [
@@ -66,6 +82,7 @@ defineLocale('pt-br', ptBrLocale);
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     NgbModule,
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     SharedModule,
 
 

@@ -14,11 +14,6 @@ export class ManagerColorsComponent implements OnInit {
     var sidebar = document.getElementsByClassName('sidebar')[0];
     var mainPanel = document.getElementsByClassName('main-panel')[0];
     var cardLogin = document.getElementsByClassName('card-login')[0];
-    console.log(cardLogin);
-
-    console.log(sidebar);
-
-
 
     this.sidebarColor = color;
 

@@ -75,7 +75,6 @@ export class SidebarComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log('cheguei', this.isCollapsed);
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
   }
 

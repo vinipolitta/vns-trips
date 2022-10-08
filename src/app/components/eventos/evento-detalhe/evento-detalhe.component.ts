@@ -140,7 +140,7 @@ export class EventoDetalheComponent implements OnInit {
   public carregarEvento(): void {
     this.eventoId = +this.actiatedRouter.snapshot.paramMap.get('id');
 
-    if (this.eventoId !== null || this.eventoId === 0) {
+    if (this.eventoId !== null && this.eventoId !== 0) {
       this.spinner.show();
 
       this.estadoSalvar = 'put';
@@ -227,8 +227,8 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public salvarLotes(): void {
-    this.spinner.show();
     if (this.form.controls['lotes'].valid) {
+      this.spinner.show();
       this.loteService
         .saveLote(this.eventoId, this.form.value.lotes)
         .subscribe(
@@ -263,7 +263,6 @@ export class EventoDetalheComponent implements OnInit {
 
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
     // this.lotes.removeAt(indice);
-    // console.log(indice);
   }
 
   public confirmLoteDelete(): void {
@@ -298,5 +297,11 @@ export class EventoDetalheComponent implements OnInit {
 
   public declineLoteDelete(): void {
     this.modalService.hide();
+  }
+
+  public verifyNameLote(campo: string): string {
+    return campo === null || campo === ''
+      ? 'Nome do Lote'
+      : campo;
   }
 }

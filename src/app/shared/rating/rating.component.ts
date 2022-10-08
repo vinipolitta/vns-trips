@@ -17,7 +17,6 @@ export class RatingComponent implements OnInit {
   ngOnInit(): void {}
 
   eventChange(eventObject: any) {
-    console.log(eventObject);
 
     this.rated.emit(eventObject)
   }
@@ -28,7 +27,6 @@ export class RatingComponent implements OnInit {
         : rating > this.rate
         ? 'fa-regular fa-star'
         : '';
-    console.log(result);
 
     return result;
   }

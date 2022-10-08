@@ -52,7 +52,6 @@
                 <input
                   type="datetime"
                   bsDatepicker
-                  value="{{ evento.dataEvento | dateTimeFormatPipe }}"
                   [bsConfig]="bsConfig"
                   class="form-control"
                   formControlName="dataEvento"
@@ -163,7 +162,10 @@
                 *ngFor="let lote of lotes.controls; let i = index"
               >
                 <fieldset [formGroupName]="i" class="form-group">
-                  <legend class="d-flex justify-content-end capitalize">
+                  <legend
+                    class="d-flex justify-content-between align-items-center capitalize"
+                  >
+                    <div class="titleLote">{{ verifyNameLote(this.lotes.get(i + '.nome').value) }}</div>
                     <button
                       (click)="removerLote(template, i)"
                       class="p-2 btn btn-sm btn-danger mb-1 d-flex"
@@ -223,7 +225,6 @@
                       <label>Data Fim</label>
                       <input
                         bsDatepicker
-
                         [bsConfig]="bsConfigLote"
                         type="text"
                         class="form-control"
@@ -239,7 +240,7 @@
                       </button>
                       <button
                         (click)="salvarLotes()"
-                        [disabled]="form.invalid"
+                        [disabled]="form.controls['lotes'].invalid"
                         class="btn btn-success"
                       >
                         Salvar Lotes

@@ -13,6 +13,7 @@ import { RadioComponent } from './radio/radio.component';
 import { RatingComponent } from './rating/rating.component';
 import { ManagerColorsComponent } from './manager-colors/manager-colors.component';
 import { TitleComponent } from './title/title.component';
+import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TitleComponent } from './title/title.component';
     RatingComponent,
     ManagerColorsComponent,
     TitleComponent,
+    NoSanitizePipe,
   ],
   imports: [
     CommonModule,

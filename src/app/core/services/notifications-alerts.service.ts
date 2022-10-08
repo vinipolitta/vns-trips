@@ -30,6 +30,5 @@ export class NotificationsAlertsService {
       }
 
       );
-      console.log(from);
   }
 }

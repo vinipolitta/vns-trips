@@ -29,7 +29,6 @@ export class RadioComponent implements OnInit, ControlValueAccessor  {
   setValue(value: any) {
     this.value = value;
     this.onChange(this.value);
-    console.log(this.value);
   }
 
   writeValue(obj: any): void {

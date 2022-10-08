@@ -73,7 +73,6 @@ export class EventoListaComponent implements OnInit {
           }
         },
         (error: any) => {
-          console.log(error);
           this.notigicationAlert.showNotification(
             'warging',
             'bottom',
@@ -81,6 +80,7 @@ export class EventoListaComponent implements OnInit {
             `Erro ao deletar evento ${this.eventoId}`,
             'Error!!'
           );
+          console.error(error);
         }
       )
       .add(() => this.spinner.hide());
@@ -109,14 +109,14 @@ export class EventoListaComponent implements OnInit {
           this.eventsFilter = this.eventos;
         },
         error: (error) => {
-          console.log(error),
-            this.notigicationAlert.showNotification(
-              'danger',
-              'bottom',
-              'right',
-              'Evento não encontrado',
-              'Error!!'
-            );
+          this.notigicationAlert.showNotification(
+            'danger',
+            'bottom',
+            'right',
+            'Evento não encontrado',
+            'Error!!'
+          );
+          console.error(error);
         },
       })
       .add(() => this.spinner.hide());
