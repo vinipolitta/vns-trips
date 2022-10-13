@@ -10,6 +10,7 @@ export class EventoService {
   constructor(private http: HttpClient) {}
 
   baseURL = 'https://localhost:5001/api/Eventos';
+  baseCep = 'https://viacep.com.br/ws/'
 
   public getEvento(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.baseURL).pipe(take(1));

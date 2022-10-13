@@ -14,7 +14,7 @@ import { ValidatorField } from '@app/shared/helpers/validator-field';
 })
 export class RegistrationComponent implements OnInit {
   public form: FormGroup;
-  constructor(public fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   get f(): any {
     return this.form.controls;

@@ -1,13 +1,21 @@
+import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
 
-import { NotificarionsAlertsService } from './notifications-alerts.service';
+import { NotificationsAlertsService } from './notifications-alerts.service';
 
 describe('NotificarionsAlertsService', () => {
-  let service: NotificarionsAlertsService;
+  let service: NotificationsAlertsService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(NotificarionsAlertsService);
+    TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule,
+        ToastrModule.forRoot()
+      ]
+    });
+
+    service = TestBed.inject(NotificationsAlertsService);
   });
 
   it('should be created', () => {

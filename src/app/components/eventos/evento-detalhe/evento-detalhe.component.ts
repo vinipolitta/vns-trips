@@ -30,6 +30,7 @@ export class EventoDetalheComponent implements OnInit {
   public estadoSalvar = 'post';
   public eventoId: number;
   public loteAtual = { id: 0, nome: '', indice: 0 };
+  public imagemURL = 'assets/img/3129492.jpg';
 
   get modoEditar(): boolean {
     return this.estadoSalvar === 'put';
