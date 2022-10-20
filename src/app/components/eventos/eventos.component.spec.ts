@@ -20,4 +20,8 @@ describe('EventosComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('checando a lista de', () => {
+    expect(component).toBeTruthy();
+  });
 });

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EventoService } from 'src/app/core/services/evento.service';
 import { Evento } from '@app/shared/interfaces/evento';
 import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-evento-lista',
@@ -84,6 +85,12 @@ export class EventoListaComponent implements OnInit {
         }
       )
       .add(() => this.spinner.hide());
+  }
+
+  public mostrarImagem(imagemURL: string): string {
+    return imagemURL !== ''
+      ? `${environment.apiURL}resources/images/${imagemURL}`
+      : 'assets/img/not-found-image.jpg';
   }
 
   public decline(): void {

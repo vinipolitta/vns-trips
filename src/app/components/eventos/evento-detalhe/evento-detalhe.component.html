@@ -14,6 +14,7 @@
                     class="form-control is-invalid"
                     formControlName="tema"
                     placeholder="Insira o Tema"
+                    [(ngModel)]="evento.tema"
                   />
                   <div *ngIf="f.tema.errors?.required" class="invalid-feedback">
                     Tema e obrigatorio
@@ -42,6 +43,7 @@
                     class="form-control is-invalid"
                     formControlName="local"
                     placeholder="Local"
+                    [(ngModel)]="evento.local"
                   />
                   <div
                     *ngIf="f.local.errors?.required"
@@ -72,6 +74,7 @@
                     class="form-control"
                     formControlName="dataEvento"
                     placeholder=""
+                    [(ngModel)]="evento.dataEvento"
                   />
                 </div>
               </div>
@@ -83,7 +86,8 @@
                     type="text"
                     class="form-control is-invalid"
                     formControlName="qtdPessoas"
-                    placeholder=""
+                    placeholder="Quantidade de pessoas"
+                    [(ngModel)]="evento.qtdPessoas"
                   />
                   <div
                     *ngIf="f.qtdPessoas.errors?.required"
@@ -92,7 +96,7 @@
                     Quantidade pessoas e obrigatorio
                   </div>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-4">
                   <label>Telefone</label>
                   <input
                     [ngClass]="cssValidator(f.telefone)"
@@ -100,6 +104,8 @@
                     class="form-control is-invalid"
                     formControlName="telefone"
                     placeholder="(000) 90000-0000"
+
+                    [(ngModel)]="evento.telefone"
                   />
                   <div
                     *ngIf="f.telefone.errors?.required"
@@ -108,7 +114,7 @@
                     Telefone obrigatorio
                   </div>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label>Email</label>
                   <input
                     [ngClass]="cssValidator(f.email)"
@@ -116,6 +122,7 @@
                     class="form-control is-invalid"
                     formControlName="email"
                     placeholder="e-mail"
+                    [(ngModel)]="evento.email"
                   />
                   <div
                     *ngIf="f.email.errors?.required"
@@ -127,16 +134,7 @@
                     Favor inserir um e-mail valido
                   </div>
                 </div>
-                <div class="form-group col-md-4">
-                  <label>Imagem</label>
-                  <input
-                    [ngClass]="cssValidator(f.imagem)"
-                    type="text"
-                    class="form-control"
-                    formControlName="imagemURL"
-                    placeholder="Imagem"
-                  />
-                </div>
+
               </div>
             </div>
             <div class="card-footer">
@@ -289,12 +287,17 @@
     </div>
   </div>
   <div class="col-md-4" *ngIf="modoEditar">
-    <div [formGroup]="form" class="card rounded shadow-sm-3" style="background-color: #4f5472">
+    <div
+      [formGroup]="form"
+      class="card rounded shadow-sm-3"
+      style="background-color: #4f5472"
+    >
       <div class="form-row">
         <div class="form-group m-0">
           <input
             type="file"
             #file
+            (change)="onFileChange($event)"
             class="form-control is-invalid"
             placeholder=""
             style="display: none"
@@ -302,15 +305,14 @@
         </div>
       </div>
       <div class="profile-card-2">
-        <div class="card-img-block   p-md-2">
+        <div class="card-img-block p-md-2">
           <img
             class="image"
-            [src]="imagemURL"
+            [src]="mostrarImagem(evento.imagemURL)"
             class="img-fluid"
             (click)="file.click()"
             alt="Card image cap"
             tooltip="Uplaod de Nova Imagem"
-            [adaptivePosition]="false"
             placement="bottom"
           />
         </div>

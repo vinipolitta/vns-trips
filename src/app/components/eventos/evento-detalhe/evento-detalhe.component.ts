@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { Evento } from '@app/shared/interfaces/evento';
 import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -30,7 +31,8 @@ export class EventoDetalheComponent implements OnInit {
   public estadoSalvar = 'post';
   public eventoId: number;
   public loteAtual = { id: 0, nome: '', indice: 0 };
-  public imagemURL = 'assets/img/3129492.jpg';
+  public imagemURL = 'assets/img/2831104.jpg';
+  public file: File;
 
   get modoEditar(): boolean {
     return this.estadoSalvar === 'put';
@@ -105,7 +107,7 @@ export class EventoDetalheComponent implements OnInit {
       ],
       dataEvento: [null],
       qtdPessoas: ['', Validators.required],
-      imagemURL: [null],
+      imagemURL: [''],
       telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       lotes: this.fb.array([]),
@@ -150,12 +152,17 @@ export class EventoDetalheComponent implements OnInit {
         .getEventoById(this.eventoId)
         .subscribe(
           (evento: Evento) => {
+            console.log('$$$$$$$$$$$',{ ...evento });
+
             this.evento = { ...evento };
+            console.log('¨¨¨¨',this.evento);
             this.form.patchValue(this.evento);
+            if (this.evento.imagemURL !== '' || undefined) {
+              this.imagemURL = environment.apiURL + 'resources/images/' + this.evento.imagemURL;
+            }
             this.evento.lotes.forEach((lote) =>
               this.lotes.push(this.criarLote(lote))
             );
-            // this.carregarLotes();
           },
           (error: any) => {
             this.notificationsAlertsService.showNotification(
@@ -172,26 +179,14 @@ export class EventoDetalheComponent implements OnInit {
     }
   }
 
-  // public carregarLotes(): void {
-  //   this.loteService
-  //     .getLoteByEventoId(this.eventoId)
-  //     .subscribe(
-  //       (lotesRetorno: Lote[]) => {
-  //         lotesRetorno.forEach((lote) => this.lotes.push(this.criarLote(lote)));
-  //       },
-  //       (error: any) => {
-  //         this.notificationsAlertsService.showNotification(
-  //           'danger',
-  //           'bottom',
-  //           'right',
-  //           'Erro ao tentar carregar lotes',
-  //           'Error!!'
-  //         );
-  //         console.error(error);
-  //       }
-  //     )
-  //     .add(() => this.spinner.hide());
-  // }
+
+  public mostrarImagem(imagemURL: string): string {
+
+    return imagemURL !== '' || undefined
+      ? `${environment.apiURL}resources/images/${imagemURL}`
+      : 'assets/img/not-found-image.jpg';
+  }
+
 
   public salvarEvento(): void {
     this.spinner.show();
@@ -301,8 +296,48 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public verifyNameLote(campo: string): string {
-    return campo === null || campo === ''
-      ? 'Nome do Lote'
-      : campo;
+    return campo === null || campo === '' ? 'Nome do Lote' : campo;
+  }
+
+  public onFileChange(ev: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.imagemURL = event.target.result;
+    };
+
+    this.file = ev.target.files;
+    reader.readAsDataURL(this.file[0]);
+    this.uploadImage();
+  }
+
+  public uploadImage(): void {
+    this.spinner.show();
+    this.eventoService
+      .postUpload(this.eventoId, this.file)
+      .subscribe(
+        () => {
+          this.carregarEvento();
+          this.notificationsAlertsService.showNotification(
+            'success',
+            'bottom',
+            'right',
+            'imagem atualizada com sucesso',
+            'Success!!'
+          );
+        },
+        (error: any) => {
+
+          this.notificationsAlertsService.showNotification(
+            'danger',
+            'bottom',
+            'right',
+            `Erro ao fazer upload de imagem`,
+            'Error!!'
+          );
+          console.error(error);
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 }
