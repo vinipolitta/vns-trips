@@ -1,10 +1,11 @@
+import { JwtInterceptor } from './interceptor/jwt.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { EventosComponent } from './components/eventos/eventos.component';
 import { DateTimeFormatPipe } from './shared/pipes/date-time-format.pipe';
@@ -34,20 +35,19 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 defineLocale('pt-br', ptBrLocale);
 
-
 export const customCurrencyMaskConfig = {
-  align: "left",
+  align: 'left',
   allowNegative: true,
   allowZero: true,
-  decimal: ",",
+  decimal: ',',
   precision: 2,
-  prefix: "R$ ",
-  suffix: "",
-  thousands: ".",
+  prefix: 'R$ ',
+  suffix: '',
+  thousands: '.',
   nullable: true,
   min: null,
   max: null,
-  inputMode: CurrencyMaskInputMode.FINANCIAL
+  inputMode: CurrencyMaskInputMode.FINANCIAL,
 };
 
 @NgModule({
@@ -64,7 +64,7 @@ export const customCurrencyMaskConfig = {
     EventoListaComponent,
     UserComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,10 +84,10 @@ export const customCurrencyMaskConfig = {
     NgbModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     SharedModule,
-
-
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

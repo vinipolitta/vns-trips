@@ -152,12 +152,9 @@ export class EventoDetalheComponent implements OnInit {
         .getEventoById(this.eventoId)
         .subscribe(
           (evento: Evento) => {
-            console.log('$$$$$$$$$$$',{ ...evento });
-
             this.evento = { ...evento };
-            console.log('¨¨¨¨',this.evento);
             this.form.patchValue(this.evento);
-            if (this.evento.imagemURL !== '' || undefined) {
+            if (this.evento.imagemURL !== null || undefined) {
               this.imagemURL = environment.apiURL + 'resources/images/' + this.evento.imagemURL;
             }
             this.evento.lotes.forEach((lote) =>

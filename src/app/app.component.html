@@ -3,7 +3,7 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="main-panel">
-    <app-navbar *ngIf="showMenu()"></app-navbar>
+    <app-navbar *ngIf="(accountService.curentUser$ | async)"></app-navbar>
 
     <div class="{{ showMenu() ? 'content' : '' }}">
       <div class="row">

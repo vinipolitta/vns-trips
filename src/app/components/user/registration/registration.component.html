@@ -12,14 +12,12 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                 </div>
-                <form [formGroup]="form" class="user">
-                  <p>{{ form.value | json }}</p>
-                  <p>{{ form.valid | json }}</p>
+                <form [formGroup]="form" class="user" (ngSubmit)="register()">
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="text"
-                        class="form-control form-control-user"
+                        class="form-control form-control-user colorRegister"
                         id="primeiroNome"
                         formControlName="primeiroNome"
                         [ngClass]="{
@@ -38,7 +36,7 @@
                     <div class="col-sm-6">
                       <input
                         type="text"
-                        class="form-control form-control-user"
+                        class="form-control form-control-user colorRegister"
                         id="ultimoNome"
                         formControlName="ultimoNome"
                         [ngClass]="{
@@ -58,7 +56,7 @@
                   <div class="form-group">
                     <input
                       type="text"
-                      class="form-control form-control-user"
+                      class="form-control form-control-user colorRegister"
                       id="user"
                       formControlName="userName"
                       [ngClass]="{
@@ -76,7 +74,7 @@
                   <div class="form-group">
                     <input
                       type="email"
-                      class="form-control form-control-user"
+                      class="form-control form-control-user colorRegister"
                       id="email"
                       formControlName="email"
                       [ngClass]="{
@@ -98,7 +96,7 @@
                     <div class="col-sm-6 mb-3 mb-sm-0">
                       <input
                         type="password"
-                        class="form-control form-control-user"
+                        class="form-control form-control-user colorRegister"
                         id="password"
                         formControlName="password"
                         [ngClass]="{
@@ -129,7 +127,7 @@
                     <div class="col-sm-6">
                       <input
                         type="password"
-                        class="form-control form-control-user"
+                        class="form-control form-control-user colorRegister"
                         id="confirmPass"
                         formControlName="confirmPass"
                         [ngClass]="{
@@ -172,14 +170,15 @@
                     [disabled]="form.invalid"
                     href="login.html"
                     class="btn btn-primary btn-user btn-block"
+                    type="submit"
                   >
                     Register Account
                   </button>
                   <hr />
-                  <a href="index.html" class="btn btn-info btn-block">
+                  <a class="btn btn-info btn-block">
                     <i class="fab fa-google fa-fw"></i> Register with Google
                   </a>
-                  <a href="index.html" class="btn btn-info btn-block">
+                  <a class="btn btn-info btn-block">
                     <i class="fab fa-facebook-f"></i> Register with Facebook
                   </a>
                 </form>

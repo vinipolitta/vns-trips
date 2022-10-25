@@ -10,8 +10,37 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/user/login/login.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'user', component: PerfilComponent },
+      { path: 'user/perfil', component: PerfilComponent },
+      {
+        path: 'eventos',
+        component: EventosComponent,
+        children: [
+          { path: 'detalhe/:id', component: EventoDetalheComponent },
+          { path: 'detalhe', component: EventoDetalheComponent },
+          { path: 'lista', component: EventoListaComponent },
+        ],
+      },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'contatos', component: ContatosComponent },
+      { path: 'home', component: HomeComponent },
+    ],
+  },
+
   {
     path: 'user',
     component: UserComponent,
@@ -19,29 +48,6 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'registration', component: RegistrationComponent },
     ],
-  },
-  { path: 'user/perfil', component: PerfilComponent },
-  { path: 'eventos', redirectTo: 'eventos/lista' },
-  {
-    path: 'eventos',
-    component: EventosComponent,
-    children: [
-      { path: 'detalhe/:id', component: EventoDetalheComponent },
-      { path: 'detalhe', component: EventoDetalheComponent },
-      { path: 'lista', component: EventoListaComponent },
-    ],
-  },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'contatos', component: ContatosComponent },
-
-  { path: 'login', component: UserComponent },
-  { path: 'registration', component: RegistrationComponent },
-
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
   },
 
   {

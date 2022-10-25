@@ -1,4 +1,7 @@
+import { AccountService } from './../../core/services/account.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '../interfaces/user';
+import { take } from 'rxjs';
 
 declare interface RouteInfo {
   path: string;
@@ -15,8 +18,8 @@ export const ROUTES: RouteInfo[] = [
   //   class: "",
   // },
   {
-    path: "/dashboard",
-    title: "Dashboard",
+    path: '/dashboard',
+    title: 'Dashboard',
     typeIcon: '',
     icon: 'fa-chart-line',
     class: '',
@@ -49,18 +52,6 @@ export const ROUTES: RouteInfo[] = [
     icon: 'fa-calendar',
     class: '',
   },
-  // {
-  //   path: "/market",
-  //   title: "Market",
-  //   icon: "icon-cart",
-  //   class: "",
-  // },
-  // {
-  //   path: "/restaurant",
-  //   title: "Restaurant",
-  //   icon: "icon-cart",
-  //   class: "",
-  // },
 ];
 @Component({
   selector: 'app-sidebar',
@@ -70,12 +61,19 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   @Input() isCollapsed!: boolean;
   menuItems!: any[];
+  currentUser: any;
 
-
-  constructor() {}
+  constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
+    this.currentUsers();
+  }
+
+  public currentUsers(): void {
+    this.accountService.curentUser$
+      .pipe(take(1))
+      .subscribe((currentUser) => (this.currentUser = currentUser.userName));
   }
 
   isMobileMenu() {
