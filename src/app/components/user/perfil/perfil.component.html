@@ -9,9 +9,9 @@
         ></app-title>
       </div>
       <div class="card-body">
-        <form [formGroup]="form">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="row">
-            <div class="col-md-5 pr-md-1">
+            <div class="col-md-6 pr-md-1">
               <div class="">
                 <label> PermissionRole </label>
                 <input
@@ -20,22 +20,11 @@
                   type="text"
                   formControlName="permissionRole"
                   value="Admin"
-                  
                 />
               </div>
             </div>
-            <div class="col-md-3 px-md-1">
-              <div class="form-group">
-                <label> Username </label>
-                <input
-                  class="form-control"
-                  placeholder="teste1234"
-                  formControlName="userName"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div class="col-md-4 pl-md-1">
+
+            <div class="col-md-6 pl-md-1">
               <div class="form-group">
                 <label for="exampleInputEmail1"> Email address </label>
                 <input
@@ -48,7 +37,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 pr-md-1">
+            <div class="col-md-4 pr-md-1">
               <div class="form-group">
                 <label> First Name </label>
                 <input
@@ -60,7 +49,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6 pl-md-1">
+            <div class="col-md-4 pl-md-1">
               <div class="form-group">
                 <label> Last Name </label>
                 <input
@@ -72,21 +61,55 @@
                 />
               </div>
             </div>
+            <div class="col-md-4 pr-md-1">
+              <div class="form-group">
+                <label> Phone Number </label>
+                <input
+                  class="form-control"
+                  placeholder="Company"
+                  formControlName="phoneNumber"
+                  type="text"
+                  value="Mike"
+                />
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label for="exampleFormControlSelect1">Function</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>Developer</option>
-                  <option>Analyst</option>
-                  <option>DevOps</option>
-                  <option>PO</option>
-                  <option>Srum Master</option>
+                <label for="function">Function</label>
+                <select
+                  class="form-control"
+                  id="function"
+                  formControlName="funcao"
+                >
+                  <option value="NaoInformado">NaoInformado</option>
+                  <option value="participante">participante</option>
+                  <option value="palestrante">palestrante</option>
+                  <option value="admin">admin</option>
                 </select>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <select
+                  class="form-control"
+                  id="titulo"
+                  formControlName="titulo"
+                >
+                  <option value="NaoInformado">NaoInformado</option>
+                  <option value="Tecnologo">Tecnologo</option>
+                  <option value="Bacharel">Bacharel</option>
+                  <option value="Especialita">Especialita</option>
+                  <option value="posGraduado">posGraduado</option>
+                  <option value="Mestrado">Mestrado</option>
+                  <option value="Doutorado">Doutorado</option>
+                  <option value="PosDoutorado">PosDoutorado</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
               <div class="form-group">
                 <label> Address </label>
                 <input
@@ -141,7 +164,7 @@
                   class="form-control"
                   cols="80"
                   placeholder="Here can be your description"
-                  formControlName="aboutMe"
+                  formControlName="descricao"
                   rows="4"
                   value="Mike"
                 ></textarea>
@@ -211,10 +234,16 @@
               </div>
             </div>
           </div>
+          <div class="card-footer">
+            <button
+              [disabled]="form.invalid"
+              class="btn btn-fill btn-danger"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
         </form>
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-fill btn-danger" type="submit">Save</button>
       </div>
     </div>
   </div>
@@ -230,23 +259,21 @@
           <a href="javascript:void(0)">
             <img alt="..." class="avatar" src="assets/img/emilyz.jpg" />
 
-            <h5 class="title">Mike Andrew</h5>
+            <h5 class="title">{{ f.userName.value }}</h5>
           </a>
-          <p class="description">Ceo/Co-Founder</p>
+          <p class="description">{{ f.titulo.value }}</p>
         </div>
         <div class="card-description">
-          Do not be scared of the truth because we need to restart the human
-          foundation in truth And I love you like Kanye loves Kanye I love Rick
-          Owens’ bed design but the back is...
+          {{ f.descricao.value }}
         </div>
         <hr class="mt-2" />
         <div class="row">
           <div class="col">
-            <p>888</p>
+            <p>0</p>
             Eventos Ministrados
           </div>
           <div class="col">
-            <p>5555</p>
+            <p>0</p>
             Eventos Participados
           </div>
         </div>

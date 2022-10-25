@@ -1,3 +1,7 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { NotificationsAlertsService } from './../../../core/services/notifications-alerts.service';
+import { Router } from '@angular/router';
+import { AccountService } from './../../../core/services/account.service';
 import {
   FormGroup,
   FormBuilder,
@@ -6,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ValidatorField } from '@app/shared/helpers/validator-field';
+import { UserUpdate } from '@app/shared/interfaces/user-update';
 
 @Component({
   selector: 'app-perfil',
@@ -14,13 +19,20 @@ import { ValidatorField } from '@app/shared/helpers/validator-field';
 })
 export class PerfilComponent implements OnInit {
   public form: FormGroup;
+  public userUpdate = {} as UserUpdate;
   public inputFunction = [
     { name: 'developer' },
     { name: 'analyst' },
     { name: 'devOps' },
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    public accountService: AccountService,
+    private router: Router,
+    private notificationsAlertsService: NotificationsAlertsService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   get f(): any {
     return this.form.controls;
@@ -28,6 +40,32 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.validation();
+    this.carregarUser();
+  }
+
+  private carregarUser(): void {
+    this.spinner.show();
+    this.accountService
+      .getUser()
+      .subscribe(
+        (user) => {
+          console.log(user);
+          this.userUpdate = user;
+          this.form.patchValue(this.userUpdate);
+        },
+        (error) => {
+          this.notificationsAlertsService.showNotification(
+            'danger',
+            'bottom',
+            'right',
+            'Erro ao carregar perfil de usuario.',
+            'Error!!'
+          );
+          console.error(error);
+          this.router.navigate(['/home']);
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 
   public validation(): void {
@@ -38,14 +76,8 @@ export class PerfilComponent implements OnInit {
     this.form = this.fb.group(
       {
         permissionRole: [''],
-        userName: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(30),
-          ],
-        ],
+        userName: [''],
+        phoneNumber: [''],
         email: ['', [Validators.required, Validators.email]],
         primeiroNome: [
           '',
@@ -66,32 +98,46 @@ export class PerfilComponent implements OnInit {
         address: [''],
         city: [''],
         country: [''],
+        funcao: [''],
+        titulo: [''],
         postalCode: [''],
-        aboutMe: [''],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(50),
-          ],
-        ],
-        confirmPass: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(50),
-          ],
-        ],
+        descricao: [''],
+        password: ['', [Validators.minLength(4), Validators.maxLength(50)]],
+        confirmPass: ['', [Validators.minLength(4), Validators.maxLength(50)]],
       },
       formOptions
     );
   }
 
   public onSubmit(): void {
-    if (this.form.invalid) {
-      return;
-    }
+    console.log(this.form.value);
+    this.atualizarUsuario();
+  }
+  public atualizarUsuario() {
+    this.userUpdate = { ...this.form.value };
+    this.spinner.show();
+    this.accountService
+      .updateUser(this.userUpdate)
+      .subscribe(
+        () =>
+          this.notificationsAlertsService.showNotification(
+            'success',
+            'bottom',
+            'right',
+            'Perfil atualizado com sucesso',
+            'Success!!'
+          ),
+        (error: any) => {
+          this.notificationsAlertsService.showNotification(
+            'danger',
+            'bottom',
+            'right',
+            'Erro ao atualizar perfil do usuario',
+            'Error!!'
+          );
+          console.error(error);
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 }

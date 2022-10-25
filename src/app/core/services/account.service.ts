@@ -1,3 +1,4 @@
+import { UserUpdate } from './../../shared/interfaces/user-update';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -46,6 +47,20 @@ export class AccountService {
         if (user) {
           this.setCurrentUser(user);
         }
+      })
+    );
+  }
+
+  public getUser(): Observable<UserUpdate> {
+    return this.http.get<UserUpdate>(this.baseUrl + 'getUser').pipe(take(1));
+  }
+
+  public updateUser(model: UserUpdate): Observable<void> {
+    return this.http.put<UserUpdate>(this.baseUrl + 'UpdateUser', model).pipe(
+      take(1),
+      map((user: UserUpdate) => {
+        console.log("@@@", user)
+        this.setCurrentUser(user);
       })
     );
   }
