@@ -17,7 +17,7 @@
                 id="staticEmail"
                 type="text"
                 placeholder="Search"
-                [(ngModel)]="filterList"
+                (input)="filtrarEventos($event.target)"
               />
             </div>
           </div>
@@ -51,7 +51,7 @@
             </thead>
             <tbody *ngIf="eventos && eventos.length">
               <tr
-                *ngFor="let evento of eventsFilter; let i = index"
+                *ngFor="let evento of eventos; let i = index"
                 (click)="editEvent(evento.id)"
                 style="cursor: pointer"
               >
@@ -85,7 +85,7 @@
                 </td>
               </tr>
             </tbody>
-            <tfoot *ngIf="!eventos.length || !eventsFilter.length">
+            <tfoot *ngIf="!eventos.length || !eventos.length">
               <tr>
                 <td colspan="8" class="text-center">
                   <h4>Nenhum evento encontrado!</h4>

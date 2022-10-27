@@ -46,12 +46,7 @@ export class EventoService {
         })
       );
   }
-
-  public getEventoByTema(tema: string): Observable<Evento[]> {
-    return this.http
-      .get<Evento[]>(`${this.baseURL}/${tema}/tema`)
-      .pipe(take(1));
-  }
+  
   public getEventoById(id: number): Observable<Evento> {
     return this.http.get<Evento>(`${this.baseURL}/${id}`).pipe(take(1));
   }

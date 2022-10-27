@@ -8,6 +8,7 @@ import { Evento } from '@app/shared/interfaces/evento';
 import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
 import { environment } from 'src/environments/environment';
 import { PaginatedResult, Pagination } from '@app/shared/interfaces/pagination';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-evento-lista',
@@ -21,21 +22,45 @@ export class EventoListaComponent implements OnInit {
   public margenImg = 2;
   public showImage = false;
   public eventsFilter: Evento[] = [];
-  private _filterList;
   public pagination = {} as Pagination;
 
   public modalRef?: BsModalRef;
   public message?: string;
 
-  public get filterList() {
-    return this._filterList;
-  }
+  termoBuscaChanged: Subject<string> = new Subject<string>();
 
-  public set filterList(value: string) {
-    this._filterList = value;
-    this.eventsFilter = this.filterList
-      ? this.filterEvents(this.filterList)
-      : this.eventos;
+  public filtrarEventos(evt: any): void {
+    if (this.termoBuscaChanged.observers.length === 0) {
+      this.termoBuscaChanged
+        .pipe(debounceTime(1000))
+        .subscribe((filtrarPor) => {
+          this.spinner.show();
+          this.eventoService
+            .getEventos(
+              this.pagination.currentPage,
+              this.pagination.itemsPerPage,
+              filtrarPor
+            )
+            .subscribe(
+              (paginatedResult: PaginatedResult<Evento[]>) => {
+                this.eventos = paginatedResult.result;
+                this.pagination = paginatedResult.pagination;
+              },
+              (error: any) => {
+                this.spinner.hide();
+                this.notigicationAlert.showNotification(
+                  'warging',
+                  'bottom',
+                  'right',
+                  'Erro ao encontrar eventos',
+                  'Error!!'
+                );
+              }
+            )
+            .add(() => this.spinner.hide());
+        });
+    }
+    this.termoBuscaChanged.next(evt.value);
   }
 
   constructor(
@@ -103,13 +128,28 @@ export class EventoListaComponent implements OnInit {
     this.modalRef?.hide();
   }
 
-  public filterEvents(filterFor: string): Evento[] {
-    filterFor = filterFor.toLocaleLowerCase();
-    return this.eventos.filter(
-      (evento) =>
-        evento.tema.toLocaleLowerCase().indexOf(filterFor) !== -1 ||
-        evento.local.toLocaleLowerCase().indexOf(filterFor) !== -1
-    );
+  public filterEvents(evt: any): void {
+    console.log(evt.value);
+    this.eventoService
+      .getEventos()
+      .subscribe(
+        (paginatedResult: PaginatedResult<Evento[]>) => {
+          this.eventos = paginatedResult.result;
+          this.pagination = paginatedResult.pagination;
+        },
+        (error: any) => {
+          this.spinner.hide();
+
+          this.notigicationAlert.showNotification(
+            'danger',
+            'bottom',
+            'right',
+            'Evento não encontrado',
+            'Error!!'
+          );
+        }
+      )
+      .add(() => this.spinner.hide());
   }
 
   public getEventos(): void {
@@ -122,9 +162,8 @@ export class EventoListaComponent implements OnInit {
           this.eventsFilter = this.eventos;
           this.pagination = paginatedResult.pagination;
           console.log(this.pagination);
-          console.log("CURRENT",this.pagination.currentPage)
-          console.log("PER PAGE",this.pagination.itemsPerPage)
-
+          console.log('CURRENT', this.pagination.currentPage);
+          console.log('PER PAGE', this.pagination.itemsPerPage);
         },
         error: (error) => {
           this.notigicationAlert.showNotification(
@@ -149,7 +188,7 @@ export class EventoListaComponent implements OnInit {
   }
 
   public pageChanged(ev): void {
-    console.log(ev)
+    console.log(ev);
     this.pagination.currentPage = ev.page;
     this.getEventos();
   }
