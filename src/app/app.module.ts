@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ToastrModule } from 'ngx-toastr';
+
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './components/home/home.component';
@@ -28,6 +30,9 @@ import { EventoDetalheComponent } from './components/eventos/evento-detalhe/even
 import { EventoListaComponent } from './components/eventos/evento-lista/evento-lista.component';
 import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/user/login/login.component';
+
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { RegistrationComponent } from './components/user/registration/registration.component';
 
 import { defineLocale } from 'ngx-bootstrap/chronos';
@@ -73,6 +78,7 @@ export const customCurrencyMaskConfig = {
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
+    NgxPaginationModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
@@ -81,6 +87,7 @@ export const customCurrencyMaskConfig = {
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
+    PaginationModule.forRoot(),
     NgbModule,
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     SharedModule,

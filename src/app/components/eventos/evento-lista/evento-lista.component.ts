@@ -7,6 +7,7 @@ import { EventoService } from 'src/app/core/services/evento.service';
 import { Evento } from '@app/shared/interfaces/evento';
 import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
 import { environment } from 'src/environments/environment';
+import { PaginatedResult, Pagination } from '@app/shared/interfaces/pagination';
 
 @Component({
   selector: 'app-evento-lista',
@@ -21,6 +22,7 @@ export class EventoListaComponent implements OnInit {
   public showImage = false;
   public eventsFilter: Evento[] = [];
   private _filterList;
+  public pagination = {} as Pagination;
 
   public modalRef?: BsModalRef;
   public message?: string;
@@ -45,8 +47,12 @@ export class EventoListaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.pagination = {
+      currentPage: 1,
+      itemsPerPage: 5,
+      totalItems: 1,
+    } as Pagination;
     this.getEventos();
-    this.spinner.show();
   }
 
   public openModal(event: any, template: TemplateRef<any>, eventoId: number) {
@@ -109,11 +115,16 @@ export class EventoListaComponent implements OnInit {
   public getEventos(): void {
     this.spinner.show();
     this.eventoService
-      .getEvento()
+      .getEventos(this.pagination.currentPage, this.pagination.itemsPerPage)
       .subscribe({
-        next: (_eventos: Evento[]) => {
-          this.eventos = _eventos;
+        next: (paginatedResult: PaginatedResult<Evento[]>) => {
+          this.eventos = paginatedResult.result;
           this.eventsFilter = this.eventos;
+          this.pagination = paginatedResult.pagination;
+          console.log(this.pagination);
+          console.log("CURRENT",this.pagination.currentPage)
+          console.log("PER PAGE",this.pagination.itemsPerPage)
+
         },
         error: (error) => {
           this.notigicationAlert.showNotification(
@@ -135,5 +146,11 @@ export class EventoListaComponent implements OnInit {
 
   public editEvent(eventoId: number): void {
     this.router.navigate([`/eventos/detalhe/${eventoId}`]);
+  }
+
+  public pageChanged(ev): void {
+    console.log(ev)
+    this.pagination.currentPage = ev.page;
+    this.getEventos();
   }
 }

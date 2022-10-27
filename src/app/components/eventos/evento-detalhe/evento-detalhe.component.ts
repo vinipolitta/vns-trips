@@ -203,7 +203,7 @@ export class EventoDetalheComponent implements OnInit {
             'Evento atualizado com sucesso',
             'Success!!'
           );
-          this.router.navigate([`eventos/detalhe/${eventoRetorno.id}`]);
+          this.router.navigate([`eventos/lista`]);
         },
         (error) => {
           console.error(error);
