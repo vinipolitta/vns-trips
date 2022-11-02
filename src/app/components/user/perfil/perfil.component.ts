@@ -45,6 +45,7 @@ export class PerfilComponent implements OnInit {
   }
 
   public get ehPalestrante(): boolean {
+    console.log( this.usuario.funcao === 'palestrante')
     return this.usuario.funcao === 'palestrante';
   }
 

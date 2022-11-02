@@ -1,1 +1,16 @@
-<p>palestrantes works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card card-chart">
+      <div class="container">
+        <app-title
+          [iconClass]="'fa fa-calendar-alt'"
+          [title]="'Paslestrantes'"
+          [subTitle]="'Lista de Paslestrantes'"
+          [botaoListar]="true"
+        ></app-title>
+        <app-palestrante-lista></app-palestrante-lista>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

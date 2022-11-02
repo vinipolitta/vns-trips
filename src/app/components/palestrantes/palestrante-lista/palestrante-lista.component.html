@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="col-12">
+    <div class="container">
+      <div
+        class="card rounded shadow-sm-3 p-3"
+        style="background-color: #4f5472"
+      >
+        <div class="d-flex">
+          <div class="flex-fill">
+            <div class="input-group">
+              <div class="input-group-text">
+                <div class="">Filter:</div>
+              </div>
+
+              <input
+                class="form-control mr-1"
+                id="staticEmail"
+                type="text"
+                placeholder="Search"
+                (input)="filtrarPalestrantes($event.target)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="palestrantes && palestrantes.length">
+        <div
+          class="col-md-4 mb-4 d-flex align-itens-stretch"
+          *ngFor="let palestrante of palestrantes"
+        >
+        <div class="">
+          <div class="card card-user">
+            <div class="card-body">
+              <p class="card-text"></p>
+              <div class="author">
+                <input
+                  type="file"
+                  #file
+                  (change)="onFileChange($event)"
+                  class="form-control is-invalid"
+                  placeholder=""
+                  style="display: none"
+                />
+
+                  <img
+                  class="image"
+                  [src]="palestrante.user.imagemURL"
+                  class="img-fluid"
+                  (click)="file.click()"
+                  alt="Card image cap"
+                  tooltip="Uplaod de Nova Imagem"
+                  placement="bottom"
+                />
+
+                  <h5 class="title">{{ palestrante.user.primeiroNome }}</h5>
+
+                <p class="description">{{ palestrante.user.titulo }}</p>
+              </div>
+              <div class="mt-3">
+                <h6>Nome: {{ palestrante.user.primeiroNome }} {{ palestrante.user.ultimoNome }}</h6>
+              </div>
+              <div class="card-description">
+                {{ palestrante.miniCurriculo }}
+              </div>
+              <hr class="mt-2" />
+              <div class="row">
+                <div class="col">
+                  <p>0</p>
+                  Eventos Ministrados
+                </div>
+                <div class="col">
+                  <p>0</p>
+                  Eventos Participados
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="button-container">
+                <button
+                  class="btn btn-icon btn-round btn-facebook"
+                  href="javascript:void(0)"
+                >
+                  <i class="fab fa-facebook"> </i>
+                </button>
+                <button
+                  class="btn btn-icon btn-round btn-twitter"
+                  href="javascript:void(0)"
+                >
+                  <i class="fab fa-twitter"> </i>
+                </button>
+                <button
+                  class="btn btn-icon btn-round btn-google"
+                  href="javascript:void(0)"
+                >
+                  <i class="fab fa-google-plus"> </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

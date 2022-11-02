@@ -40,6 +40,7 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { PerfilDetalheComponent } from './components/user/perfil/perfil-detalhe/perfil-detalhe.component';
+import { PalestranteListaComponent } from './components/palestrantes/palestrante-lista/palestrante-lista.component';
 defineLocale('pt-br', ptBrLocale);
 
 export const customCurrencyMaskConfig = {
@@ -73,6 +74,7 @@ export const customCurrencyMaskConfig = {
     LoginComponent,
     RegistrationComponent,
     PerfilDetalheComponent,
+    PalestranteListaComponent,
   ],
   imports: [
     BrowserModule,

@@ -38,6 +38,14 @@ export const ROUTES: RouteInfo[] = [
     icon: 'fa-calendar-alt',
     class: '',
   },
+
+  {
+    path: '/palestrantes',
+    title: 'Palestrantes',
+    typeIcon: '',
+    icon: 'fa-calendar-alt',
+    class: '',
+  },
   {
     path: 'user/perfil',
     title: 'Perfil',

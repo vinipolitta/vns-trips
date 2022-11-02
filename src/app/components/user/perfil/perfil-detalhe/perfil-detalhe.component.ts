@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AccountService } from '@app/core/services/account.service';
 import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
+import { PalestranteService } from '@app/core/services/palestrante.service';
 import { ValidatorField } from '@app/shared/helpers/validator-field';
 import { UserUpdate } from '@app/shared/interfaces/user-update';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -35,6 +36,7 @@ export class PerfilDetalheComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public accountService: AccountService,
+    public palestranteService: PalestranteService,
     private router: Router,
     private notificationsAlertsService: NotificationsAlertsService,
     private spinner: NgxSpinnerService
@@ -54,7 +56,6 @@ export class PerfilDetalheComponent implements OnInit {
       () => {}
     );
   }
-
 
   private carregarUser(): void {
     this.spinner.show();
@@ -131,6 +132,29 @@ export class PerfilDetalheComponent implements OnInit {
   public atualizarUsuario() {
     this.userUpdate = { ...this.form.value };
     this.spinner.show();
+    if (this.f.funcao.value == 'Palestrante') {
+      // Chamo a funcao para criar o registro na tabela de palestrante
+      this.palestranteService.post().subscribe(
+        () =>
+          this.notificationsAlertsService.showNotification(
+            'success',
+            'bottom',
+            'right',
+            'Funçao palestrante ativada',
+            'Successo!!'
+          ),
+        (error) => {
+          this.notificationsAlertsService.showNotification(
+            'danger',
+            'bottom',
+            'right',
+            'Funcao palestrante nao pode ser ativada',
+            'Error!!'
+          );
+          console.error(error);
+        }
+      );
+    }
     this.accountService
       .updateUser(this.userUpdate)
       .subscribe(

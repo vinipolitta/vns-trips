@@ -11,6 +11,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { AuthGuard } from './guard/auth.guard';
+import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+import { PalestranteListaComponent } from './components/palestrantes/palestrante-lista/palestrante-lista.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,13 @@ const routes: Routes = [
           { path: 'detalhe/:id', component: EventoDetalheComponent },
           { path: 'detalhe', component: EventoDetalheComponent },
           { path: 'lista', component: EventoListaComponent },
+        ],
+      },
+      {
+        path: 'palestrantes',
+        component: PalestrantesComponent,
+        children: [
+          { path: 'lista', component: PalestranteListaComponent },
         ],
       },
       { path: 'dashboard', component: DashboardComponent },
