@@ -9,262 +9,79 @@
         ></app-title>
       </div>
       <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="row">
-            <div class="col-md-6 pr-md-1">
-              <div class="">
-                <label> PermissionRole </label>
-                <input
-                  class="form-control"
-                  placeholder="Company"
-                  type="text"
-                  formControlName="permissionRole"
-                  value="Admin"
-                />
-              </div>
-            </div>
+        <tabset>
+          <tab class="border p-3">
+            <ng-template tabHeading>
+              <i class="fa fa-address-card">
+                <span> Perfil </span>
+              </i>
+            </ng-template>
 
-            <div class="col-md-6 pl-md-1">
-              <div class="form-group">
-                <label for="exampleInputEmail1"> Email address </label>
-                <input
-                  class="form-control"
-                  placeholder="mike@email.com"
-                  formControlName="email"
-                  type="email"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 pr-md-1">
-              <div class="form-group">
-                <label> First Name </label>
-                <input
-                  class="form-control"
-                  placeholder="Company"
-                  formControlName="primeiroNome"
-                  type="text"
-                  value="Mike"
-                />
-              </div>
-            </div>
-            <div class="col-md-4 pl-md-1">
-              <div class="form-group">
-                <label> Last Name </label>
-                <input
-                  class="form-control"
-                  placeholder="Last Name"
-                  formControlName="ultimoNome"
-                  type="text"
-                  value="Andrew"
-                />
-              </div>
-            </div>
-            <div class="col-md-4 pr-md-1">
-              <div class="form-group">
-                <label> Phone Number </label>
-                <input
-                  class="form-control"
-                  placeholder="Company"
-                  formControlName="phoneNumber"
-                  type="text"
-                  value="Mike"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="function">Function</label>
-                <select
-                  class="form-control"
-                  id="function"
-                  formControlName="funcao"
-                >
-                  <option value="NaoInformado">NaoInformado</option>
-                  <option value="participante">participante</option>
-                  <option value="palestrante">palestrante</option>
-                  <option value="admin">admin</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="titulo">Titulo</label>
-                <select
-                  class="form-control"
-                  id="titulo"
-                  formControlName="titulo"
-                >
-                  <option value="NaoInformado">NaoInformado</option>
-                  <option value="Tecnologo">Tecnologo</option>
-                  <option value="Bacharel">Bacharel</option>
-                  <option value="Especialita">Especialita</option>
-                  <option value="posGraduado">posGraduado</option>
-                  <option value="Mestrado">Mestrado</option>
-                  <option value="Doutorado">Doutorado</option>
-                  <option value="PosDoutorado">PosDoutorado</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label> Address </label>
-                <input
-                  class="form-control"
-                  placeholder="Home Address"
-                  formControlName="address"
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 pr-md-1">
-              <div class="form-group">
-                <label> City </label>
-                <input
-                  class="form-control"
-                  placeholder="City"
-                  formControlName="city"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div class="col-md-4 px-md-1">
-              <div class="form-group">
-                <label> Country </label>
-                <input
-                  class="form-control"
-                  placeholder="Country"
-                  formControlName="country"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div class="col-md-4 pl-md-1">
-              <div class="form-group">
-                <label> Postal Code </label>
-                <input
-                  class="form-control"
-                  placeholder="ZIP Code"
-                  formControlName="postalCode"
-                  type="number"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label> About Me </label>
-                <textarea
-                  class="form-control"
-                  cols="80"
-                  placeholder="Here can be your description"
-                  formControlName="descricao"
-                  rows="4"
-                  value="Mike"
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <p class="text-center">Change Password</p>
-            <div class="form-group row">
-              <div class="col-sm-6">
-                <div>Password</div>
-                <input
-                  type="password"
-                  class="form-control form-control-user"
-                  id="password"
-                  formControlName="password"
-                  [ngClass]="{
-                    'is-invalid': f.password?.errors && f.password?.touched
-                  }"
-                  placeholder="Password"
-                />
-                <div
-                  *ngIf="f.password.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Passord e obrigatorio
-                </div>
-                <div
-                  *ngIf="f.password.errors?.minlength"
-                  class="invalid-feedback"
-                >
-                  Deve ter no minimo 4 caracteres
-                </div>
-                <div
-                  *ngIf="f.password.errors?.maxlength"
-                  class="invalid-feedback"
-                >
-                  Tamanho max permitido e de 50 caracteres
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div>Confirm Password</div>
+            <app-perfil-detalhe
+              (changeFormValue)="setFormValue($event)"
+            ></app-perfil-detalhe
+          ></tab>
 
-                <input
-                  type="password"
-                  class="form-control form-control-user"
-                  id="confirmPass"
-                  formControlName="confirmPass"
-                  [ngClass]="{
-                    'is-invalid':
-                      f.confirmPass?.errors && f.confirmPass?.touched
-                  }"
-                  placeholder="Repeat Password"
-                />
-                <div
-                  *ngIf="f.confirmPass.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Confirmation Password e obrigatorio
-                </div>
-                <div
-                  *ngIf="f.confirmPass.errors?.mustMatch"
-                  class="invalid-feedback"
-                >
-                  Senhas nao sao iguais
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <button
-              [disabled]="form.invalid"
-              class="btn btn-fill btn-danger"
-              type="submit"
-            >
-              Save
-            </button>
-          </div>
-        </form>
+          <tab *ngIf="ehPalestrante" class="border p-3">
+            <ng-template tabHeading>
+              <i class="fa fa-user">
+                <span> Palestrante </span>
+              </i>
+            </ng-template>
+          </tab>
+          <tab *ngIf="ehPalestrante" class="border p-3">
+            <ng-template tabHeading>
+              <i class="fa fa-share-square">
+                <span> Rede Social </span>
+              </i>
+            </ng-template>
+          </tab>
+        </tabset>
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
     <div class="card card-user">
       <div class="card-body">
         <p class="card-text"></p>
         <div class="author">
-          <div class="block block-one"></div>
-          <div class="block block-two"></div>
-          <div class="block block-three"></div>
-          <div class="block block-four"></div>
-          <a href="javascript:void(0)">
-            <img alt="..." class="avatar" src="assets/img/emilyz.jpg" />
+          <input
+            type="file"
+            #file
+            (change)="onFileChange($event)"
+            class="form-control is-invalid"
+            placeholder=""
+            style="display: none"
+          />
+<!--
+            <img
+            href="javascript:void(0)"
+              alt="..."
+              class="avatar"
+              [src]="imagemURL"
+              click="file.click()"
+              style="cursor: pointer;"
+            /> -->
+            <img
+            class="image"
+            [src]="imagemURL"
+            class="img-fluid"
+            (click)="file.click()"
+            alt="Card image cap"
+            tooltip="Uplaod de Nova Imagem"
+            placement="bottom"
+          />
 
-            <h5 class="title">{{ f.userName.value }}</h5>
-          </a>
-          <p class="description">{{ f.titulo.value }}</p>
+            <h5 class="title">{{ usuario.primeiroNome }}</h5>
+
+          <p class="description">{{ usuario.titulo }}</p>
+        </div>
+        <div class="mt-3">
+          <h6>Nome: {{ usuario.primeiroNome }} {{ usuario.ultimoNome }}</h6>
         </div>
         <div class="card-description">
-          {{ f.descricao.value }}
+          {{ usuario.descricao }}
         </div>
         <hr class="mt-2" />
         <div class="row">

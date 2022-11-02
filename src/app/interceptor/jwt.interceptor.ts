@@ -6,7 +6,9 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, take } from 'rxjs/operators';
+
 import { User } from '@app/shared/interfaces/user';
 
 @Injectable()
@@ -30,6 +32,13 @@ export class JwtInterceptor implements HttpInterceptor {
       }
     });
 
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error: any) => {
+        if (error) {
+          localStorage.removeItem('currentUser');
+        }
+        return throwError(error);
+      })
+    );
   }
 }

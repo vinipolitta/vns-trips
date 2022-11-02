@@ -1,14 +1,13 @@
-import { Router } from '@angular/router';
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
+import { Evento } from '@app/shared/interfaces/evento';
+import { PaginatedResult, Pagination } from '@app/shared/interfaces/pagination';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { EventoService } from 'src/app/core/services/evento.service';
-import { Evento } from '@app/shared/interfaces/evento';
-import { NotificationsAlertsService } from '@app/core/services/notifications-alerts.service';
-import { environment } from 'src/environments/environment';
-import { PaginatedResult, Pagination } from '@app/shared/interfaces/pagination';
 import { debounceTime, Subject } from 'rxjs';
+import { EventoService } from 'src/app/core/services/evento.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-evento-lista',
@@ -74,7 +73,7 @@ export class EventoListaComponent implements OnInit {
   ngOnInit(): void {
     this.pagination = {
       currentPage: 1,
-      itemsPerPage: 5,
+      itemsPerPage: 10,
       totalItems: 1,
     } as Pagination;
     this.getEventos();

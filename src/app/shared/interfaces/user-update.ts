@@ -5,6 +5,7 @@ export class UserUpdate {
   primeiroNome: string ;
   ultimoNome: string ;
   email: string ;
+  imagemURL: string;
   phoneNumber: string ;
   funcao: string ;
   descricao: string ;

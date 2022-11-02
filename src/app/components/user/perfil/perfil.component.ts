@@ -11,6 +11,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { ValidatorField } from '@app/shared/helpers/validator-field';
 import { UserUpdate } from '@app/shared/interfaces/user-update';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -19,112 +20,67 @@ import { UserUpdate } from '@app/shared/interfaces/user-update';
 })
 export class PerfilComponent implements OnInit {
   public form: FormGroup;
-  public userUpdate = {} as UserUpdate;
-  public inputFunction = [
-    { name: 'developer' },
-    { name: 'analyst' },
-    { name: 'devOps' },
-  ];
-
-  constructor(
-    private fb: FormBuilder,
-    public accountService: AccountService,
-    private router: Router,
-    private notificationsAlertsService: NotificationsAlertsService,
-    private spinner: NgxSpinnerService
-  ) {}
+  public usuario = {} as UserUpdate;
+  public imagemURL;
+  file: File;
 
   get f(): any {
-    return this.form.controls;
+    return '';
   }
 
-  ngOnInit(): void {
-    this.validation();
-    this.carregarUser();
+  constructor(
+    private spinner: NgxSpinnerService,
+    private notificationsAlertsService: NotificationsAlertsService,
+    private accountService: AccountService
+  ) {}
+
+  ngOnInit(): void {}
+
+  public setFormValue(usuario: UserUpdate): void {
+    this.usuario = usuario;
+    this.usuario.imagemURL != null
+      ? (this.imagemURL =
+          environment.apiURL + `resources/perfil/${this.usuario.imagemURL}`)
+      : (this.imagemURL = './assets/img/not-found-image.jpg');
   }
 
-  private carregarUser(): void {
-    this.spinner.show();
-    this.accountService
-      .getUser()
-      .subscribe(
-        (user) => {
-          console.log(user);
-          this.userUpdate = user;
-          this.form.patchValue(this.userUpdate);
-        },
-        (error) => {
-          this.notificationsAlertsService.showNotification(
-            'danger',
-            'bottom',
-            'right',
-            'Erro ao carregar perfil de usuario.',
-            'Error!!'
-          );
-          console.error(error);
-          this.router.navigate(['/home']);
-        }
-      )
-      .add(() => this.spinner.hide());
+  public get ehPalestrante(): boolean {
+    return this.usuario.funcao === 'palestrante';
   }
 
-  public validation(): void {
-    const formOptions: AbstractControlOptions = {
-      validators: ValidatorField.MustMatch('password', 'confirmPass'),
+  public onFileChange(ev: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => {
+      this.imagemURL = event.target.result;
     };
 
-    this.form = this.fb.group(
-      {
-        permissionRole: [''],
-        userName: [''],
-        phoneNumber: [''],
-        email: ['', [Validators.required, Validators.email]],
-        primeiroNome: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(50),
-          ],
-        ],
-        ultimoNome: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(4),
-            Validators.maxLength(50),
-          ],
-        ],
-        address: [''],
-        city: [''],
-        country: [''],
-        funcao: [''],
-        titulo: [''],
-        postalCode: [''],
-        descricao: [''],
-        password: ['', [Validators.minLength(4), Validators.maxLength(50)]],
-        confirmPass: ['', [Validators.minLength(4), Validators.maxLength(50)]],
-      },
-      formOptions
-    );
+    this.file = ev.target.files;
+    console.log(this.file);
+
+    reader.readAsDataURL(this.file[0]);
+    this.uploadImagem();
   }
 
-  public onSubmit(): void {
-    console.log(this.form.value);
-    this.atualizarUsuario();
+  public mostrarImagem(imagemURL: string): string {
+    console.log(imagemURL);
+
+    return imagemURL !== '' || undefined
+      ? `${environment.apiURL}resources/images/${imagemURL}`
+      : 'assets/img/not-found-image.jpg';
   }
-  public atualizarUsuario() {
-    this.userUpdate = { ...this.form.value };
+
+  private uploadImagem(): void {
     this.spinner.show();
     this.accountService
-      .updateUser(this.userUpdate)
+      .postUpload(this.file)
       .subscribe(
         () =>
           this.notificationsAlertsService.showNotification(
             'success',
             'bottom',
             'right',
-            'Perfil atualizado com sucesso',
+            'Evento atualizado com sucesso',
             'Success!!'
           ),
         (error: any) => {
@@ -132,7 +88,7 @@ export class PerfilComponent implements OnInit {
             'danger',
             'bottom',
             'right',
-            'Erro ao atualizar perfil do usuario',
+            'Erro ao Atualizar imagem',
             'Error!!'
           );
           console.error(error);

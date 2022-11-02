@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharedModule } from './shared/shared.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +39,7 @@ import { RegistrationComponent } from './components/user/registration/registrati
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
+import { PerfilDetalheComponent } from './components/user/perfil/perfil-detalhe/perfil-detalhe.component';
 defineLocale('pt-br', ptBrLocale);
 
 export const customCurrencyMaskConfig = {
@@ -70,6 +72,7 @@ export const customCurrencyMaskConfig = {
     UserComponent,
     LoginComponent,
     RegistrationComponent,
+    PerfilDetalheComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ export const customCurrencyMaskConfig = {
     BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
     ToastrModule.forRoot(),
+    TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
